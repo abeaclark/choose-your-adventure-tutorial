@@ -1,0 +1,124 @@
+<html>
+  <!-- HTML is the language the elements in this file are written in. -->
+  <head>
+    <style>
+      /* This is written in a language called css */
+      .hide {
+          display: none;
+      }
+      button {
+          padding: 20px;
+          background-color: blue;
+          color: white;
+      }
+    </style>
+  </head>
+    <body>
+        <h1 id="story-text">
+            
+        </h1>
+        <button id='buttonA' onclick="clickOptionA()">
+            Option A
+        </button>
+        <button id='buttonB' onclick="clickOptionB()">
+            Option B
+        </button>
+    </body>
+    <script>
+      // inside the <script> tag, we write javascript. Javascript powers interactions on websites
+
+      var creepyHouse = {
+        "story": "Jeff got eaten by a robot.",
+      }
+
+      var salmonella = {
+        "story": "Jeff got salmonella and died.",
+      }
+
+      var iceCream = {
+        "story": "Jeff is lactos intolerant. Yummy ice cream, need to wash his pants.",
+      }
+
+      var happy = {
+        "story": "Jeff lived hapilly ever after"
+      }
+
+      var run = {
+        "story": "The pancake was delicious. Jeff then went for a long run in the woods",
+        "optionAText": "Take some Tums",
+        "optionBText": "Throw up and go eat the pancakes",
+        "optionANextCase": salmon,
+        "optionBNextCase": happy,
+      }
+
+      var salmon = {
+        "story": "The salmon gave him an upset stomach",
+        "optionAText": "Take some Tums",
+        "optionBText": "Throw up and go eat the pancakes",
+        "optionANextCase": salmonella,
+        "optionBNextCase": happy,
+      }
+
+      var pancake = {
+        "story": "The pancake was delicious. Jeff then went for a long run in the woods",
+        "optionAText": "Run past the creepy house",
+        "optionBText": "Run to the ice cream store",
+        "optionANextCase": creepyHouse,
+        "optionBNextCase": iceCream,
+      }
+
+      var beginning = {
+        "story": "Jeff found himself in front of a spread of amazing breakfast foods.",
+        "optionAText": "Eat the Pancake",
+        "optionBText": "Eat the smoked salmon",
+        "optionANextCase": pancake,
+        "optionBNextCase": salmon,
+      }
+
+      var currentStoryStep = beginning
+
+      function clickOptionA(event) {
+        currentStoryStep = currentStoryStep.optionANextCase
+        updateAllPageText(currentStoryStep)
+      }
+
+      function clickOptionB(event) {
+        currentStoryStep = currentStoryStep.optionBNextCase
+        updateAllPageText(currentStoryStep)
+      }
+
+      function updateStoryDisplayText(newText){
+        var element = document.getElementById('story-text')
+        element.innerText = newText
+      }
+
+      function updateButtonText(buttonId, newText){
+        var element = document.getElementById(buttonId)
+        element.innerText = newText
+      }
+
+      function updateAllPageText(currentStoryStep){
+        updateStoryDisplayText(currentStoryStep.story)
+
+        if (currentStoryStep.optionAText) {
+          updateButtonText('buttonA', currentStoryStep.optionAText)
+        } else {
+          hideButton('buttonA')
+        }
+
+        if (currentStoryStep.optionBText) {
+          updateButtonText('buttonB', currentStoryStep.optionBText)
+        } else {
+          hideButton('buttonB')
+        }
+
+      }
+
+      function hideButton(buttonId) {
+        var element = document.getElementById(buttonId)
+        element.className = 'hide'
+      }
+
+      updateAllPageText(currentStoryStep)
+    </script>
+</html>
